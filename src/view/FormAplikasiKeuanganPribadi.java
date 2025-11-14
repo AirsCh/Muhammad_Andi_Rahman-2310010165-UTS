@@ -187,7 +187,7 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
         PanelJudul.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblJudul.setText("Aplkasi Keuangan Pribadi");
+        lblJudul.setText("Aplikasi Keuangan Pribadi");
 
         javax.swing.GroupLayout PanelJudulLayout = new javax.swing.GroupLayout(PanelJudul);
         PanelJudul.setLayout(PanelJudulLayout);
@@ -303,22 +303,22 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelButtonLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(btnSimpan)
+                .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEdit)
+                .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnHapus)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelButtonLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEdit)
-                    .addComponent(btnSimpan)
-                    .addComponent(btnHapus))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
