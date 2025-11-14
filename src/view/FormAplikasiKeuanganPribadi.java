@@ -182,9 +182,11 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikasi Keungan Pribadi");
 
         PanelJudul.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblJudul.setText("Aplkasi Keuangan Pribadi");
 
         javax.swing.GroupLayout PanelJudulLayout = new javax.swing.GroupLayout(PanelJudul);
@@ -194,7 +196,7 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelJudulLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblJudul)
-                .addGap(287, 287, 287))
+                .addGap(248, 248, 248))
         );
         PanelJudulLayout.setVerticalGroup(
             PanelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
