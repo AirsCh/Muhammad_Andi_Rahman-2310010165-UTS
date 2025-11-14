@@ -23,10 +23,12 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
 
     private void initCustom() {
         // atur combobox dengan jenis laporan
-        jComboBox1.removeAllItems();
-        jComboBox1.addItem("Pemasukan");
-        jComboBox1.addItem("Pengeluaran");
-
+        cmbJenis.removeAllItems();
+        cmbJenis.addItem("Pilih -");
+        cmbJenis.addItem("Pemasukan");
+        cmbJenis.addItem("Pengeluaran");
+        cmbJenis.setSelectedIndex(0);
+        
         // set table model dengan kolom ID, Jenis, Jumlah, Detail, Waktu
         tableModel = new DefaultTableModel(new Object[]{"ID", "Jenis", "Jumlah", "Detail", "Waktu"}, 0) {
             @Override
@@ -38,9 +40,9 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
         TableInformasi.removeColumn(TableInformasi.getColumnModel().getColumn(0)); // sembunyikan kolom ID dari tampilan
 
         // event tombol
-        jButton1.addActionListener(e -> onSave());
-        jButton2.addActionListener(e -> onEdit());
-        jButton3.addActionListener(e -> onDelete());
+        btnSimpan.addActionListener(e -> onSave());
+        btnEdit.addActionListener(e -> onEdit());
+        btnHapus.addActionListener(e -> onDelete());
 
         // saat klik baris tabel, isi form untuk edit
         TableInformasi.addMouseListener(new MouseAdapter() {
@@ -55,15 +57,15 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
                     Double jumlah = (Double) tableModel.getValueAt(modelRow, 2);
                     String detail = (String) tableModel.getValueAt(modelRow, 3);
                     selectedId = id;
-                    jComboBox1.setSelectedItem(jenis);
-                    jTextField1.setText(String.valueOf(jumlah));
-                    jTextArea1.setText(detail);
+                    cmbJenis.setSelectedItem(jenis);
+                    txtJumlah.setText(String.valueOf(jumlah));
+                    txtaDetail.setText(detail);
                 }
             }
         });
 
         // Clear selection when form gains focus
-        jTextField1.addFocusListener(new FocusAdapter() {
+        txtJumlah.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
                 // nothing for now
             }
@@ -87,10 +89,10 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
     }
 
     private void onSave() {
-        String jenis = (String) jComboBox1.getSelectedItem();
-        String jumlahStr = jTextField1.getText().trim();
+        String jenis = (String) cmbJenis.getSelectedItem();
+        String jumlahStr = txtJumlah.getText().trim();
         double jumlah = controller.parseJumlah(jumlahStr);
-        String detail = jTextArea1.getText().trim();
+        String detail = txtaDetail.getText().trim();
 
         if (jenis == null || jumlah <= 0) {
             JOptionPane.showMessageDialog(this, "Pastikan jenis dipilih dan jumlah > 0", "Validasi", JOptionPane.WARNING_MESSAGE);
@@ -112,10 +114,10 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pilih transaksi yang akan diedit dari tabel.", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        String jenis = (String) jComboBox1.getSelectedItem();
-        String jumlahStr = jTextField1.getText().trim();
+        String jenis = (String) cmbJenis.getSelectedItem();
+        String jumlahStr = txtJumlah.getText().trim();
         double jumlah = controller.parseJumlah(jumlahStr);
-        String detail = jTextArea1.getText().trim();
+        String detail = txtaDetail.getText().trim();
 
         if (jenis == null || jumlah <= 0) {
             JOptionPane.showMessageDialog(this, "Pastikan jenis dipilih dan jumlah > 0", "Validasi", JOptionPane.WARNING_MESSAGE);
@@ -151,9 +153,9 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
     }
 
     private void clearForm() {
-        jComboBox1.setSelectedIndex(0);
-        jTextField1.setText("");
-        jTextArea1.setText("");
+        cmbJenis.setSelectedIndex(0);
+        txtJumlah.setText("");
+        txtaDetail.setText("");
         selectedId = null;
         TableInformasi.clearSelection();
     }
@@ -167,17 +169,17 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
         scrlPanel = new javax.swing.JScrollPane();
         TableInformasi = new javax.swing.JTable();
         PanelInput = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
+        lblJenis = new javax.swing.JLabel();
+        cmbJenis = new javax.swing.JComboBox<>();
+        lblJumlah = new javax.swing.JLabel();
+        txtJumlah = new javax.swing.JTextField();
+        scrlDetail = new javax.swing.JScrollPane();
+        txtaDetail = new javax.swing.JTextArea();
+        lblText = new javax.swing.JLabel();
         PanelButton = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,7 +194,7 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelJudulLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblJudul)
-                .addGap(218, 218, 218))
+                .addGap(287, 287, 287))
         );
         PanelJudulLayout.setVerticalGroup(
             PanelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,30 +225,30 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             PanelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTabelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(scrlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelTabelLayout.setVerticalGroup(
             PanelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTabelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PanelInput.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("Jenis Laporan");
+        lblJenis.setText("Jenis Laporan");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbJenis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel2.setText("Jumlah Uang");
+        lblJumlah.setText("Jumlah Uang");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtaDetail.setColumns(20);
+        txtaDetail.setRows(5);
+        scrlDetail.setViewportView(txtaDetail);
 
-        jLabel3.setText("Detail Laporan");
+        lblText.setText("Detail Laporan");
 
         javax.swing.GroupLayout PanelInputLayout = new javax.swing.GroupLayout(PanelInput);
         PanelInput.setLayout(PanelInputLayout);
@@ -255,14 +257,14 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             .addGroup(PanelInputLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(lblJenis)
+                    .addComponent(lblJumlah)
+                    .addComponent(lblText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(txtJumlah)
+                    .addComponent(cmbJenis, 0, 187, Short.MAX_VALUE)
+                    .addComponent(scrlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelInputLayout.setVerticalGroup(
@@ -270,28 +272,28 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             .addGroup(PanelInputLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblJenis)
+                    .addComponent(cmbJenis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PanelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblJumlah)
+                    .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PanelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelInputLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+                    .addComponent(scrlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         PanelButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Simpan");
+        btnSimpan.setText("Simpan");
 
-        jButton2.setText("Edit");
+        btnEdit.setText("Edit");
 
-        jButton3.setText("Hapus");
+        btnHapus.setText("Hapus");
 
         javax.swing.GroupLayout PanelButtonLayout = new javax.swing.GroupLayout(PanelButton);
         PanelButton.setLayout(PanelButtonLayout);
@@ -299,22 +301,22 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelButtonLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jButton1)
+                .addComponent(btnSimpan)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnEdit)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(btnHapus)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelButtonLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(27, 27, 27)
                 .addGroup(PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(btnEdit)
+                    .addComponent(btnSimpan)
+                    .addComponent(btnHapus))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -327,10 +329,10 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
                     .addComponent(PanelJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PanelInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PanelInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PanelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(PanelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -340,11 +342,13 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
                 .addComponent(PanelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(PanelInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(PanelInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(PanelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -392,17 +396,17 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
     private javax.swing.JPanel PanelJudul;
     private javax.swing.JPanel PanelTabel;
     private javax.swing.JTable TableInformasi;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnSimpan;
+    private javax.swing.JComboBox<String> cmbJenis;
+    private javax.swing.JLabel lblJenis;
     private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblJumlah;
+    private javax.swing.JLabel lblText;
+    private javax.swing.JScrollPane scrlDetail;
     private javax.swing.JScrollPane scrlPanel;
+    private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextArea txtaDetail;
     // End of variables declaration//GEN-END:variables
 }
