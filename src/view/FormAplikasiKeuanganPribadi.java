@@ -182,7 +182,7 @@ public class FormAplikasiKeuanganPribadi extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Aplikasi Keungan Pribadi");
+        setTitle("Aplikasi Keuangan Pribadi");
 
         PanelJudul.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
